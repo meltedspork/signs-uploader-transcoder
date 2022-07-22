@@ -3,11 +3,12 @@ const childProcessPromise = require('./child-process-promise');
 const path = require('path');
 const os = require('os');
 
-const constants = require('./constants');
-const EXTENSION = constants.EXTENSION;
-const THUMB_WIDTH = constants.THUMB_WIDTH;
-const OUTPUT_BUCKET = constants.OUTPUT_BUCKET;
-const MIME_TYPE = constants.MIME_TYPE;
+const {
+	EXTENSION,
+	THUMB_WIDTH,
+	OUTPUT_BUCKET,
+	MIME_TYPE,
+} = require('./constants');
 
 exports.handler = async (eventObject, context) => {
 	console.log('EXTENSION:::::> ', EXTENSION);
