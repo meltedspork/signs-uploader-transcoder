@@ -1,27 +1,37 @@
-/*global module, require, console, Promise */
+/* global module, require, console, Promise */
+
 'use strict';
-const childProcess = require('child_process'),
-	spawnPromise = function (command, argsarray, envOptions) {
-		console.log('=======> starting child_process');
-		return new Promise((resolve, reject) => {
-			console.log('executing', command, argsarray.join(' '));
-			const childProc = childProcess.spawn(command, argsarray, envOptions || {env: process.env, cwd: process.cwd()}),
-				resultBuffers = [];
-			childProc.stdout.on('data', buffer => {
-				console.log(buffer.toString());
-				resultBuffers.push(buffer);
-			});
-			childProc.stderr.on('data', buffer => console.error(buffer.toString()));
-			childProc.on('exit', (code, signal) => {
-				console.log(`${command} completed with ${code}:${signal}`);
-				if (code || signal) {
-					reject(`${command} failed with ${code || signal}`);
-				} else {
-					resolve(Buffer.concat(resultBuffers).toString().trim());
-				}
-			});
+
+const childProcess = require('child_process');
+
+const spawnPromise = function (command, argsarray, envOptions) {
+	console.log('=======> starting child_process');
+
+	return new Promise((resolve, reject) => {
+		console.log('executing', command, argsarray.join(' '));
+
+		const childProc = childProcess.spawn(command, argsarray, envOptions || {env: process.env, cwd: process.cwd()});
+		const resultBuffers = [];
+
+		childProc.stdout.on('data', buffer => {
+			console.log(buffer.toString());
+			resultBuffers.push(buffer);
 		});
-	};
+
+		childProc.stderr.on('data', buffer => console.error(buffer.toString()));
+
+		childProc.on('exit', (code, signal) => {
+			console.log(`${command} completed with ${code}:${signal}`);
+
+			if (code || signal) {
+				reject(`${command} failed with ${code || signal}`);
+			} else {
+				resolve(Buffer.concat(resultBuffers).toString().trim());
+			}
+		});
+	});
+};
+
 module.exports = {
-	spawn: spawnPromise
+	spawn: spawnPromise,
 };
