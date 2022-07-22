@@ -4,8 +4,8 @@ const MIME_TYPE = 'image/gif';
 const THUMB_WIDTH = 300;
 
 module.exports = {
-	OUTPUT_BUCKET,
-	EXTENSION,
+  OUTPUT_BUCKET,
+  EXTENSION,
   MIME_TYPE,
   THUMB_WIDTH,
 };
