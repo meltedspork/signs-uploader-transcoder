@@ -8,7 +8,7 @@ const s3Util = require('./s3-util'),
 	MIME_TYPE =  process.env.MIME_TYPE;
 
 exports.handler = async (eventObject, context) => {
-	console.log('okay cool');
+	console.log('deployed');
 	console.log('EXTENSION:::::> ', EXTENSION);
 	console.log('THUMB_WIDTH:::::> ', THUMB_WIDTH);
 	console.log('OUTPUT_BUCKET:::::> ', OUTPUT_BUCKET);
