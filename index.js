@@ -35,7 +35,8 @@ exports.handler = async (eventObject, context) => {
 			'/opt/bin/ffmpeg',
 			// ['-loglevel', 'error', '-y', '-i', inputFile, '-vf', `thumbnail,scale=${THUMB_WIDTH}:-1`, '-frames:v', '1', outputFile],
 			// ['-loglevel', 'error', '-y', '-i', inputFile, '-vf', `scale=${THUMB_WIDTH}:-1`, '-pix_fmt', 'rgb24', '-r', '20', '-f', 'gif', outputFile],
-			['-loglevel', 'error', '-y', '-i', inputFile,  '-preset', 'slow', '-codec:a', 'libfdk_aac', '-b:a', '128k', '-codec:v', 'libx264', '-pix_fmt', 'yuv420p', '-b:v', '2500k', '-minrate', '1500k', '-maxrate', '4000k', '-bufsize', '5000k', '-vf', `scale=-1:${THUMB_WIDTH}`, outputFile],
+			// ['-loglevel', 'error', '-y', '-i', inputFile,  '-preset', 'slow', '-codec:a', 'libfdk_aac', '-b:a', '128k', '-codec:v', 'libx264', '-pix_fmt', 'yuv420p', '-b:v', '2500k', '-minrate', '1500k', '-maxrate', '4000k', '-bufsize', '5000k', '-vf', `scale=-1:${THUMB_WIDTH}`, outputFile],
+			['-loglevel', 'error', '-y', '-i', inputFile, '-vcodec', 'h264', '-acodec', 'aac', '-vf', `scale=-1:${THUMB_WIDTH}`, outputFile],
 			{
 				env: process.env,
 				cwd: workdir,
