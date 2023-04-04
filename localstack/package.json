@@ -1,0 +1,11 @@
+{
+  "name": "localstack-tutorial",  
+  "dependencies": {
+    "dayjs": "^1.11.0"  
+  },
+  "scripts": {
+    "dev": "docker-compose down && docker-compose up",
+    "dev:stop": "docker-compose down --remove-orphans",
+    "awslocal": "AWS_ACCESS_KEY_ID=testUser AWS_SECRET_ACCESS_KEY=testAccessKey AWS_DEFAULT_REGION=us-east-1 aws --endpoint-url=http://localhost:4566"
+  }
+}
