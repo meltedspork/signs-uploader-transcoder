@@ -26,7 +26,7 @@ exports.handler = async (eventObject, context) => {
 	const resultKey = key.replace(/\.[^.]+$/, EXTENSION);
 	const workdir = os.tmpdir();
 	const inputFile = path.join(workdir,  id + path.extname(key));
-	const outputFile = path.join(workdir, id + EXTENSION);
+	const outputFile = path.join(workdir, id + '.' + EXTENSION);
 		
 	console.log('converting', inputBucket, key, 'using', inputFile);
 
@@ -34,7 +34,8 @@ exports.handler = async (eventObject, context) => {
 		.then(() => childProcessPromise.spawn(
 			'/opt/bin/ffmpeg',
 			// ['-loglevel', 'error', '-y', '-i', inputFile, '-vf', `thumbnail,scale=${THUMB_WIDTH}:-1`, '-frames:v', '1', outputFile],
-			['-loglevel', 'error', '-y', '-i', inputFile, '-vf', `scale=${THUMB_WIDTH}:-1`, '-pix_fmt', 'rgb24', '-r', '20', '-f', 'gif', outputFile],
+			// ['-loglevel', 'error', '-y', '-i', inputFile, '-vf', `scale=${THUMB_WIDTH}:-1`, '-pix_fmt', 'rgb24', '-r', '20', '-f', 'gif', outputFile],
+			['-loglevel', 'error', '-y', '-i', inputFile,  '-preset', 'slow', '-codec:a', 'libfdk_aac', '-b:a', '128k', '-codec:v', 'libx264', '-pix_fmt', 'yuv420p', '-b:v', '2500k', '-minrate', '1500k', '-maxrate', '4000k', '-bufsize 5000k', '-vf', `scale=-1:${THUMB_WIDTH}`, outputFile],
 			{
 				env: process.env,
 				cwd: workdir,

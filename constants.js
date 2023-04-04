@@ -1,7 +1,7 @@
 const OUTPUT_BUCKET = process.env.OUTPUT_BUCKET;
-const EXTENSION = '.gif';
-const MIME_TYPE = 'image/gif';
-const THUMB_WIDTH = 300;
+const EXTENSION = 'mpeg';
+const MIME_TYPE = 'video/mp4';
+const THUMB_WIDTH = 720;
 
 module.exports = {
   OUTPUT_BUCKET,
